@@ -1,0 +1,16 @@
+func_reference.lo: func_reference.c /usr/include/stdc-predef.h ./xc.h \
+ ../xc_version.h \
+ /jet/packages/oneapi/v2023.2.0/compiler/2023.2.1/linux/bin/intel64/../../compiler/include/icc/stddef.h \
+ ./xc_funcs.h ./xc_funcs_removed.h
+
+/usr/include/stdc-predef.h:
+
+./xc.h:
+
+../xc_version.h:
+
+/jet/packages/oneapi/v2023.2.0/compiler/2023.2.1/linux/bin/intel64/../../compiler/include/icc/stddef.h:
+
+./xc_funcs.h:
+
+./xc_funcs_removed.h:

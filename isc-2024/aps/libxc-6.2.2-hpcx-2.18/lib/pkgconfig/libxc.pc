@@ -1,0 +1,11 @@
+prefix=/jet/home/scherbar/aps/libxc-6.2.2-hpcx-2.18
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libxc
+Description: Library of exchange and correlation functionals to be used in DFT codes
+Requires: 
+Version: 6.2.2
+Libs: -L${libdir} -lxc
+Cflags: -I${includedir}
