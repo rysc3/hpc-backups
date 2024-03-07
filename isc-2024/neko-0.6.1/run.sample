@@ -1,0 +1,28 @@
+#!/bin/bash
+#SBATCH -p RM
+#SBATCH --nodes=4
+#SBATCH --ntasks-per-node=128
+#SBATCH -J neko
+#SBATCH --time=4:00:00
+#SBATCH --exclusive
+module purge
+source /jet/packages/oneapi/v2023.2.0/compiler/2023.2.1/env/vars.sh
+source /jet/packages/oneapi/v2023.2.0/mkl/2023.2.0/env/vars.sh
+
+HCA=mlx5_0:1
+
+source /jet/packages/oneapi/v2023.2.0//mpi/2021.10.0/env/vars.sh
+USE_UCX=1
+MPIFLAGS=""
+if [ $USE_UCX -ne 0 ]; then
+        MPIFLAGS+="-genv USE_UCX=$USE_UCX "
+        MPIFLAGS+="-genv UCX_NET_DEVICES ${HCA} "
+        MPIFLAGS+="-genv FI_PROVIDER=mlx "
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:<path to ucx>/lib
+else
+        MPIFLAGS+="-genv FI_PROVIDER=^mlx "
+fi
+
+cd tgv
+/jet/home/scherbar/neko-0.6.1/bin/makeneko ${TEST}.f90
+mpirun -np $SLURM_NTASKS $MPIFLAGS $SLURM_SUBMIT_DIR/../bin/neko tgv_Re1600.case
