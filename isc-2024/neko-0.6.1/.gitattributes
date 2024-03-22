@@ -1,5 +1,0 @@
-*.pf linguist-language=fortran
-*.f90.in linguist-language=fortran
-*.F90.in linguist-language=fortran
-*.hip linguist-language=C++
-

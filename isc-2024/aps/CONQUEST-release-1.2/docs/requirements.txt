@@ -1,2 +1,0 @@
-sphinxcontrib.bibtex>=2.3.0
-sphinx_rtd_theme>0.5.1

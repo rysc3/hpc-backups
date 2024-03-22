@@ -1,4 +1,0 @@
-# -*- mode: Makefile -*-
-# $Id$
-#
-COMM_OBJS = generic_comms.o
