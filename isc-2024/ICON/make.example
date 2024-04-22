@@ -1,0 +1,31 @@
+#!/bin/bash 
+
+# Dependencies 
+# module load gcc/.12.3.0-gcc-11.2.0-nvptx
+module load gcc
+spack load netcdf-cxx4@4.3.1
+spack load cdo@2.2.2
+
+# Build CPU
+cmake -DMU_IMPL=seq \
+			-DMU_ENABLE_SINGLE=OFF \
+			-B build -S .
+# What I actually used:
+cmake -DMAKE_CXX_COMPILER=g++ -DCMAKE_CXX_FLAGS="-O0" -DMU_IMPL=seq -DMU_ENBABLE_SINGLE=ON -B build -S .
+
+
+# Build GPU
+cmake -DMAKE_CXX_COMPILER=g++ \
+      -DCMAKE_CXX_FLAGS="-O0" \
+      -DMU_IMPL=<name-for-your-solution> \
+      -DMU_ENABLE_SINGLE=ON \
+      -B build_single -S scc_at_isc24 \
+      && cmake --build build_single
+
+# What I actually used:
+cmake -DMAKE_CXX_COMPILER=g++ -DCMAKE_CXX_FLAGS="" -DCMAKE_CUDA_COMPILER=nvcc -DMU_IMPL=seq -DMU_ENABLE_SINGLE=ON -B build -S .  
+
+cmake --build build
+
+# Run 
+# ./build/bin/groupel tasks/input.nc
